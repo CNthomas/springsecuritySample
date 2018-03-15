@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Hello Spring Security</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}" />
+    </head>
+    <body>
+        <div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
+            Logged in user: <span sec:authentication="name"></span> |
+            Roles: <span sec:authentication="principal.authorities"></span>
+            <div>
+                <form action="#" th:action="@{/logout}" method="post">
+                    <input type="submit" value="Logout" />
+                </form>
+            </div>
+        </div>
+        <div th:substituteby="login::logout"></div>
+        <h1>This is a secured page!</h1>
+    </body>
+</html>

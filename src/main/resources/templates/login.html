@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Login page</title>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="/css/main.css" th:href="@{/css/main.css}" />
+        <script type="text/javascript" th:src="@{/js/jquery-3.3.1.min.js}"/>
+	</head>
+    <body>
+        <h1>Login page</h1>
+        <p>Example user: user / password</p>
+        <p th:if="${loginError}" class="error">Wrong user or password</p>
+        <form th:action="@{/login}" method="post">
+            <label for="username">Username</label>:
+            <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+            <label for="password">Password</label>:
+            <input type="password" id="password" name="password" /> <br />
+            <label for="validateCode">valiCode</label>
+            <input type="text" id="validateCode" name="validateCode"  />
+            <input type="button" id="clickBut" th:value="generate"/>
+            <input type="submit" value="Log in" />
+        </form>
+        <p><a href="/user/index" th:href="@{/user/index}">Back to home page</a></p>
+    </body>
+<script>
+    $(function () {
+        $("#clickBut").on("click",function () {
+            $.get("/generateCode",function (data) {
+                console.log(data);
+                $("#validateCode").val(data.data);
+            })
+        })
+    })
+</script>
+</html>
